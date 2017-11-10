@@ -1,0 +1,6 @@
+build/*
+*.sw[op]
+*.[ado]
+*.so
+*.la.*
+*.so.*
