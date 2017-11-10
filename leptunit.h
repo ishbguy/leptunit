@@ -1,10 +1,10 @@
 /*
- * Copyright (c) 2017 Herbert Shen <ishbguy@hotmail.com>
+ * Copyright (c) 2017 - Now Herbert Shen <ishbguy@hotmail.com>
  *               All Rights Reserved.
  */
 
-#ifndef __FRAMEWORK_H__
-#define __FRAMEWORK_H__
+#ifndef __LEPTUNIT_H__
+#define __LEPTUNIT_H__
 
 #include <stdio.h>
 #include <string.h>
@@ -90,6 +90,6 @@ typedef void (*UnitTest)(void);
  */
 extern void run_tests(UnitTest *tests);
 
-#endif /* End of include guard: __FRAMEWORK_H__ */
+#endif /* End of include guard: __LEPTUNIT_H__ */
 
 /* vim:set ft=c ts=4 sw=4: */
