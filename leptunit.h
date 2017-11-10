@@ -13,20 +13,20 @@
 
 extern int leptunit_main_ret;
 extern int leptunit_count;
-extern int leptunit_pass; 
+extern int leptunit_pass;
 extern int leptunit_fail;
 
 #define EXPECT_EQ_BASE(equality, expect, actual, format)                      \
     do {                                                                      \
-        leptunit_count++;                                                         \
         if (equality)                                                         \
-            leptunit_pass++;                                                      \
+            leptunit_pass++;                                                  \
         else {                                                                \
             fprintf(stderr, "%s:%d: expect: " format " actual: " format "\n", \
                     __FILE__, __LINE__, expect, actual);                      \
-            leptunit_fail++;                                                      \
-            leptunit_main_ret = 1;                                                     \
+            leptunit_fail++;                                                  \
+            leptunit_main_ret = 1;                                            \
         }                                                                     \
+        leptunit_count++;                                                     \
     } while(0)
 
 /* equal */
@@ -90,14 +90,14 @@ extern int leptunit_fail;
  * @brief   leptunit_t for test function type.
  *
  */
-typedef void (*leptunit_t)(void);
+typedef void (*leptunit_t) (void);
 
 /**
  * @brief       Run all given test function.
  *
  * @param tests The given test function array, end with NULL element.
  */
-extern void leptunit_run(leptunit_t *tests);
+extern void leptunit_run(leptunit_t * tests);
 
 /* print out unit tests summary */
 extern int leptunit_summary(void);
