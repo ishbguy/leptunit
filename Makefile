@@ -1,24 +1,37 @@
-LANG := c
-OUT := libleptunit.so
-SRC := $(shell ls *.$(LANG))
-OBJ := $(subst .$(LANG),.o,$(SRC))
+PRO := leptunit
+LNG := c
+LIB := lib$(PRO).so
+EXE :=
+TST := test-$(PRO)
+OUT := $(LIB) $(EXE) $(TST)
+SRC := $(shell ls *.$(LNG))
+OBJ := $(subst .$(LNG),.o,$(SRC))
 
-ifeq ($(LANG), c)
+ifeq ($(LNG), c)
 	CC := gcc
 else
 	CC := g++
 endif
-LDFLAGS := -shared
+LIB_LDFLAGS := -shared
+EXE_LDFLAGS :=
+TST_LDFLAGS := -lm -l$(PRO) -L.
 CFLAGS := -c
 RM := rm -f
 
 .PHONY : all
 all : $(OUT)
 
-$(OUT) : $(OBJ)
-	$(CC) $(LDFLAGS) -o $@ $^
+.PHONY : lib
+lib : $(LIB)
+$(LIB) : $(OBJ)
+	$(CC) $(LIB_LDFLAGS) -o $@ $^
 
-%.o : %.$(LANG)
+.PHONY : test
+test : $(LIB) $(TST)
+$(TST) : $(addsuffix .o,$(TST))
+	$(CC) $(TST_LDFLAGS) -o $@ $<
+
+%.o : %.$(LNG)
 	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY : clean
