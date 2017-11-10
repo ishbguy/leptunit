@@ -99,6 +99,9 @@ typedef void (*leptunit_t)(void);
  */
 extern void leptunit_run(leptunit_t *tests);
 
+/* print out unit tests summary */
+extern int leptunit_summary(void);
+
 #endif /* End of include guard: __LEPTUNIT_H__ */
 
 /* vim:set ft=c ts=4 sw=4: */
