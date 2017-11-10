@@ -9,27 +9,51 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
-extern int main_ret;
-extern int test_count;
-extern int test_pass; 
-extern int test_fail;
+extern int leptunit_main_ret;
+extern int leptunit_count;
+extern int leptunit_pass; 
+extern int leptunit_fail;
 
 #define EXPECT_EQ_BASE(equality, expect, actual, format)                      \
     do {                                                                      \
-        test_count++;                                                         \
+        leptunit_count++;                                                         \
         if (equality)                                                         \
-            test_pass++;                                                      \
+            leptunit_pass++;                                                      \
         else {                                                                \
             fprintf(stderr, "%s:%d: expect: " format " actual: " format "\n", \
                     __FILE__, __LINE__, expect, actual);                      \
-            test_fail++;                                                      \
-            main_ret = 1;                                                     \
+            leptunit_fail++;                                                      \
+            leptunit_main_ret = 1;                                                     \
         }                                                                     \
     } while(0)
 
+/* equal */
+#define EXPECT_TRUE(expr)                                                     \
+    EXPECT_EQ_BASE((expr) != 0, #expr " true", "false", "%s")
+
+#define EXPECT_FLASE(expr)                                                    \
+    EXPECT_EQ_BASE((expr) == 0, #expr " false", "true", "%s")
+
 #define EXPECT_EQ_INT(expect, actual)                                         \
     EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%d")
+
+/* compare two double which are not calculate result */
+#define EXPECT_EQ_DOUBLE(expect, actual)                                      \
+    EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%.17g")
+
+#define EXPECT_EQ_DOUBLE_PREC(expect, actual, prec)                           \
+    EXPECT_EQ_BASE((fabs((expect) - (actual)) < fabs(prec)),                  \
+            expect, actual, "%.17g")
+
+#define EXPECT_EQ_STR(expect, actual)                                         \
+    EXPECT_EQ_BASE((!strcmp((expect), (char *)(actual))),                     \
+            expect, (char *)actual, "%s")
+
+#define EXPECT_EQ_NSTR(expect, actual, length)                                \
+    EXPECT_EQ_BASE((!strncmp((expect), (char *)(actual), length)),            \
+            expect, (char *)actual, "%s")
 
 #define EXPECT_EQ_PTR(expect, actual)                                         \
     EXPECT_EQ_BASE((expect) == (actual), expect, actual, "%p")
@@ -37,16 +61,24 @@ extern int test_fail;
 #define EXPECT_EQ_NULL(actual)                                                \
     EXPECT_EQ_BASE((NULL) == (actual), NULL, actual, "%p")
 
-#define EXPECT_EQ_FLOAT(expect, actual, prec)                                 \
-    EXPECT_EQ_BASE((abs((expect) - (actual)) < (prec)),                       \
-            expect, actual, "%f")
-
-#define EXPECT_EQ_STR(expect, actual)                                         \
-    EXPECT_EQ_BASE((!strcmp((expect), (char *)(actual))),                     \
-            expect, (char *)actual, "%s")
-
+/* not equal */
 #define EXPECT_NE_INT(expect, actual)                                         \
     EXPECT_EQ_BASE((expect) != (actual), expect, actual, "%d")
+
+#define EXPECT_NE_DOUBLE(expect, actual)                                      \
+    EXPECT_EQ_BASE((expect) != (actual), expect, actual, "%.17g")
+
+#define EXPECT_NE_DOUBLE_PREC(expect, actual, prec)                           \
+    EXPECT_EQ_BASE((fabs((expect) - (actual)) > fabs(prec)),                  \
+            expect, actual, "%.17g")
+
+#define EXPECT_NE_STR(expect, actual)                                         \
+    EXPECT_EQ_BASE((strcmp((expect), (char *)(actual))),                      \
+            expect, (char *)actual, "%s")
+
+#define EXPECT_NE_NSTR(expect, actual, length)                                \
+    EXPECT_EQ_BASE((strncmp((expect), (char *)(actual), length)),             \
+            expect, (char *)actual, "%s")
 
 #define EXPECT_NE_PTR(expect, actual)                                         \
     EXPECT_EQ_BASE((expect) != (actual), expect, actual, "%p")
@@ -54,41 +86,18 @@ extern int test_fail;
 #define EXPECT_NE_NULL(actual)                                                \
     EXPECT_EQ_BASE((NULL) != (actual), NULL, actual, "%p")
 
-#define EXPECT_NE_FLOAT(expect, actual, prec)                                 \
-    EXPECT_EQ_BASE((abs((expect) - (actual)) > (prec)),                       \
-            expect, actual, "%f")
-
-#define EXPECT_NE_STR(expect, actual)                                         \
-    EXPECT_EQ_BASE((strcmp((expect), (char *)(actual))),                      \
-            expect, (char *)actual, "%s")
-
-#define EXPECT_BOOL(expr)                                                     \
-    do {                                                                      \
-        test_count++;                                                         \
-        if (expr)                                                             \
-            test_pass++;                                                      \
-        else {                                                                \
-            fprintf(stderr, "%s:%d: " #expr "failed.\n", __FILE__, __LINE__); \
-            test_fail++;                                                      \
-            main_ret = 1;                                                     \
-        }                                                                     \
-    } while(0)
-
-#define EXPECT_TRUE(expr) EXPECT_BOOL((expr))
-#define EXPECT_FLASE(expr) EXPECT_BOOL(!(expr))
-
 /**
- * @brief   UnitTest function type.
+ * @brief   leptunit_t for test function type.
  *
  */
-typedef void (*UnitTest)(void);
+typedef void (*leptunit_t)(void);
 
 /**
  * @brief       Run all given test function.
  *
- * @param tests The given test function array.
+ * @param tests The given test function array, end with NULL element.
  */
-extern void run_tests(UnitTest *tests);
+extern void leptunit_run(leptunit_t *tests);
 
 #endif /* End of include guard: __LEPTUNIT_H__ */
 
