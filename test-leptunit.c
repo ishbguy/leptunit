@@ -5,7 +5,7 @@
 
 #include "leptunit.h"
 
-void test_leptunit_run(leptunit_suit_t * suit)
+void test_leptunit_expect(leptunit_suit_t * suit)
 {
     /*
      * Test bool 
@@ -45,18 +45,13 @@ int main(int argc, char *argv[])
 {
     leptunit_suit_t suit;
 
-    /*
-     * Add test cases 
-     */
-    leptunit_t tests[] = {
-        test_leptunit_run,
-        test_leptunit_summary,
-        NULL,
-    };
-
     leptunit_init(&suit);
-    leptunit_run(&suit, tests);
-    return leptunit_summary(&suit);
+    leptunit_add(&suit, test_leptunit_summary);
+    leptunit_add(&suit, test_leptunit_expect);
+    leptunit_run(&suit);
+    leptunit_summary(&suit);
+    leptunit_clear(&suit);
+    return 0;
 }
 
 /* vim:set ft=c ts=4 sw=4: */

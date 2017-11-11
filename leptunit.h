@@ -15,11 +15,11 @@
 #define EXPECT_EQ_BASE(equality, expect, actual, format)                      \
     do {                                                                      \
         if (equality)                                                         \
-            suit->pass++;                                                  \
+            suit->pass++;                                                     \
         else                                                                  \
             fprintf(stderr, "%s:%d: expect: " format " actual: " format "\n", \
                     __FILE__, __LINE__, expect, actual);                      \
-        suit->count++;                                                     \
+        suit->count++;                                                        \
     } while(0)
 
 /* equal */
@@ -79,25 +79,29 @@
 #define EXPECT_NE_NULL(actual)                                                \
     EXPECT_EQ_BASE((NULL) != (actual), NULL, actual, "%p")
 
+typedef struct leptunit_list_t leptunit_list_t;
+
 /* test suit type */
 typedef struct {
     int count;
     int pass;
+    leptunit_list_t *tests;
 } leptunit_suit_t;
 
 /* test case type */
 typedef void (*leptunit_t) (leptunit_suit_t * suit);
 
+/* init a test suit */
 extern void leptunit_init(leptunit_suit_t * suit);
 
-//extern void leptunit_add(leptunit_suit_t *suit, leptunit_t *tcase);
+/* add test case to test suit */
+extern void leptunit_add(leptunit_suit_t *suit, leptunit_t test);
 
-/**
- * @brief       Run all given test function.
- *
- * @param tests The given test function array, end with NULL element.
- */
-extern void leptunit_run(leptunit_suit_t * suit, leptunit_t * tests);
+/* clear all test cases in test suit */
+extern void leptunit_clear(leptunit_suit_t *suit);
+
+/* run a test suit */
+extern void leptunit_run(leptunit_suit_t * suit);
 
 /* print out unit tests summary */
 extern int leptunit_summary(leptunit_suit_t * suit);
