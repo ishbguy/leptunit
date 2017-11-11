@@ -25,7 +25,7 @@ $ make lib
 or
 ```
 $ cd /path/to/leptunit
-$ make test-leptunit
+$ make test
 ```
 
 After generate the dynamic shared library, you can copy it to the standard library directory in Linux, or:
@@ -37,7 +37,7 @@ $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/could/ld/find
 
 Write test.c:
 
-```
+```C
 #include "/path/to/leptunit.h"
 
 /* test_case's arg must be "leptunit_suit *suit" !!!*/
