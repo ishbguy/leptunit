@@ -1,5 +1,6 @@
 test-leptunit
 build/*
+vgcore*
 *.sw[op]
 *.[ado]
 *.so
