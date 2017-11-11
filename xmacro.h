@@ -52,12 +52,12 @@
 #endif
 
 /**
- * @brief CONTAINER_OF - cast a member of a structure out to the 
- *                       containing structure 
+ * @brief CONTAINER_OF - cast a member of a structure out to the
+ *                       containing structure
  *
  * @param ptr       the pointer to the member.
- * @param type      the type of the container struct this is embedded in. 
- * @param member    the name of the member within the struct. 
+ * @param type      the type of the container struct this is embedded in.
+ * @param member    the name of the member within the struct.
  *
  * @return          Pointer of the container.
  */
