@@ -11,22 +11,15 @@
 #include <stdlib.h>
 #include <math.h>
 
-extern int leptunit_main_ret;
-extern int leptunit_count;
-extern int leptunit_pass;
-extern int leptunit_fail;
-
+/* these EXPECT macros must use in a test case */
 #define EXPECT_EQ_BASE(equality, expect, actual, format)                      \
     do {                                                                      \
         if (equality)                                                         \
-            leptunit_pass++;                                                  \
-        else {                                                                \
+            suit->pass++;                                                  \
+        else                                                                  \
             fprintf(stderr, "%s:%d: expect: " format " actual: " format "\n", \
                     __FILE__, __LINE__, expect, actual);                      \
-            leptunit_fail++;                                                  \
-            leptunit_main_ret = 1;                                            \
-        }                                                                     \
-        leptunit_count++;                                                     \
+        suit->count++;                                                     \
     } while(0)
 
 /* equal */
@@ -86,21 +79,28 @@ extern int leptunit_fail;
 #define EXPECT_NE_NULL(actual)                                                \
     EXPECT_EQ_BASE((NULL) != (actual), NULL, actual, "%p")
 
-/**
- * @brief   leptunit_t for test function type.
- *
- */
-typedef void (*leptunit_t) (void);
+/* test suit type */
+typedef struct {
+    int count;
+    int pass;
+} leptunit_suit_t;
+
+/* test case type */
+typedef void (*leptunit_t) (leptunit_suit_t * suit);
+
+extern void leptunit_init(leptunit_suit_t * suit);
+
+//extern void leptunit_add(leptunit_suit_t *suit, leptunit_t *tcase);
 
 /**
  * @brief       Run all given test function.
  *
  * @param tests The given test function array, end with NULL element.
  */
-extern void leptunit_run(leptunit_t * tests);
+extern void leptunit_run(leptunit_suit_t * suit, leptunit_t * tests);
 
 /* print out unit tests summary */
-extern int leptunit_summary(void);
+extern int leptunit_summary(leptunit_suit_t * suit);
 
 #endif /* End of include guard: __LEPTUNIT_H__ */
 

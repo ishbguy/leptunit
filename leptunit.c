@@ -5,28 +5,25 @@
 
 #include "leptunit.h"
 
-int leptunit_main_ret = 0;
-int leptunit_count = 0;
-int leptunit_pass = 0;
-int leptunit_fail = 0;
-
-static void run_test(leptunit_t test)
+void leptunit_init(leptunit_suit_t * suit)
 {
-    test();
+    suit->count = 0;
+    suit->pass = 0;
 }
 
-void leptunit_run(leptunit_t * tests)
+void leptunit_run(leptunit_suit_t * suit, leptunit_t * tests)
 {
     for (int i = 0; tests[i] != NULL; i++)
-        run_test(tests[i]);
+        tests[i] (suit);
 }
 
-int leptunit_summary(void)
+int leptunit_summary(leptunit_suit_t * suit)
 {
-    printf("total: %d, pass: %d, fail: %d, (%3.2f%%).\n", leptunit_count,
-           leptunit_pass, leptunit_fail,
-           leptunit_pass * 100.0 / leptunit_count);
-    return leptunit_main_ret;
+    int fail = suit->count - suit->pass;
+
+    printf("total: %d, pass: %d, fail: %d, (%3.2f%%).\n", suit->count,
+           suit->pass, fail, suit->pass * 100.0 / suit->count);
+    return fail;
 }
 
 /* vim:set ft=c ts=4 sw=4: */
