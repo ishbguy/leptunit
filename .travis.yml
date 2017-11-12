@@ -3,4 +3,6 @@ before_script:
   - mkdir build
   - cd build
   - cmake ..
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 script: make
