@@ -36,7 +36,7 @@ EXE_CFLAGS :=
 LIB_LDFLAGS := -shared
 LIB_CFLAGS := -fPIC -g -Wall
 
-TST_LDFLAGS := -lm -l$(PRO) -L.
+TST_LDFLAGS := -lm -L. -l$(PRO)
 TST_CFLAGS := -g -Wall
 
 RM := rm -f

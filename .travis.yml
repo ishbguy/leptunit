@@ -1,3 +1,2 @@
 language: c
-script:
-    make cov
+script: make
