@@ -1,5 +1,7 @@
 # LeptUnit
 
+[![Build Status](https://travis-ci.org/ishbguy/leptunit.svg?branch=master)](https://travis-ci.org/ishbguy/leptunit)
+
 LeptUnit is a light weight C unit test library and inspired by [miloyip](https://github.com/moliyip)'s [json-tutorial](https://github.com/moliyip/json-tutorial).
 
 ## Features
