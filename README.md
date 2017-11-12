@@ -28,6 +28,8 @@ $ cd /path/to/leptunit
 $ make test
 ```
 
+## Configuration
+
 After generate the dynamic shared library, you can copy it to the standard library directory in Linux, or:
 ```
 $ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/path/could/ld/find
