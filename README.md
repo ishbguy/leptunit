@@ -11,6 +11,7 @@ LeptUnit is a light weight C unit test library and inspired by [miloyip](https:/
 
 ## Installation
 
+### Without build tool, only make
 In Linux with gcc, make:
 
 ```
@@ -27,6 +28,15 @@ or
 $ cd /path/to/leptunit
 $ make test
 ```
+
+### With cmake build tool
+
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+```
+**Don't run `cmake` in the repo root directory for it will generate a new Makefile to over-write the repo's default Makefile!**
 
 ## Configuration
 
