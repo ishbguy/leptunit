@@ -27,9 +27,9 @@ void leptunit_init(leptunit_suit_t * suit)
 
 void leptunit_add(leptunit_suit_t * suit, leptunit_t test)
 {
-    assert(suit && test);
-
     xlist_node_t *l;
+
+    assert(suit && test);
 
     GET_LIST_HEAD(suit->tests, l);
     XLIST_ADD(l, test);
@@ -38,9 +38,9 @@ void leptunit_add(leptunit_suit_t * suit, leptunit_t test)
 
 void leptunit_clear(leptunit_suit_t * suit)
 {
-    assert(suit);
-
     xlist_node_t *l;
+
+    assert(suit);
 
     GET_LIST_HEAD(suit->tests, l);
     XLIST_FREE(l);
@@ -49,9 +49,9 @@ void leptunit_clear(leptunit_suit_t * suit)
 
 void leptunit_run(leptunit_suit_t * suit)
 {
-    assert(suit);
-
     xlist_node_t *test, *l;
+
+    assert(suit);
 
     GET_LIST_HEAD(suit->tests, l);
     XLIST_FOR_EACH(test, l)
@@ -60,9 +60,9 @@ void leptunit_run(leptunit_suit_t * suit)
 
 int leptunit_summary(leptunit_suit_t * suit)
 {
-    assert(suit);
-
     int fail = suit->count - suit->pass;
+
+    assert(suit);
 
     printf("total: %d, pass: %d, fail: %d, (%3.2f%%).\n", suit->count,
            suit->pass, fail, suit->pass * 100.0 / suit->count);
