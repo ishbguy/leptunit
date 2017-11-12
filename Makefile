@@ -28,10 +28,10 @@ ifeq ($(LNG), c)
 else
 	CC := g++
 endif
-LIB_LDFLAGS := -coverage -Wall -shared
+LIB_LDFLAGS := -Wall -shared
 EXE_LDFLAGS :=
-TST_LDFLAGS := -coverage -Wall -lm -l$(PRO) -L.
-CFLAGS := -coverage -g -Wall -c
+TST_LDFLAGS := -Wall -lm -l$(PRO) -L.
+CFLAGS := -fPIC -g -Wall -c
 RM := rm -f
 COVT := gcov
 COVFLAGS := -coverage -g -Wall
