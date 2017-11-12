@@ -1,5 +1,6 @@
 # make output files
 test-leptunit
+cov-test-leptunit
 build/*
 
 # valgrind's coredump files

@@ -7,6 +7,7 @@ EXE :=
 LIB := lib$(PRO).so
 TST := test-$(PRO)
 OUT := $(EXE) $(LIB) $(TST)
+COV := cov-$(TST)
 
 # input
 EXE_SRC :=
@@ -32,7 +33,8 @@ EXE_LDFLAGS :=
 TST_LDFLAGS := -coverage -Wall -lm -l$(PRO) -L.
 CFLAGS := -coverage -g -Wall -c
 RM := rm -f
-COV := gcov
+COVT := gcov
+COVFLAGS := -coverage -g -Wall
 
 # targets
 .PHONY : all
@@ -53,9 +55,11 @@ $(TST) : $(LIB) $(TST_OBJ)
 	$(CC) $(TST_LDFLAGS) -o $@ $(TST_OBJ)
 
 .PHONY : cov
-cov : test $(SRC)
-	./$(TST)
-	$(COV) $(SRC)
+cov : $(COV)
+$(COV) : $(SRC)
+	$(CC) $(COVFLAGS) -o $@ $^
+	./$@
+	$(COVT) $(SRC)
 
 %.o : %.$(LNG)
 	$(CC) $(CFLAGS) -o $@ $<
