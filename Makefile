@@ -28,10 +28,17 @@ ifeq ($(LNG), c)
 else
 	CC := g++
 endif
-LIB_LDFLAGS := -Wall -shared
+CFLAGS := -g -Wall -c
+
 EXE_LDFLAGS :=
-TST_LDFLAGS := -Wall -lm -l$(PRO) -L.
-CFLAGS := -fPIC -g -Wall -c
+EXE_CFLAGS :=
+
+LIB_LDFLAGS := -shared
+LIB_CFLAGS := -fPIC -g -Wall
+
+TST_LDFLAGS := -lm -l$(PRO) -L.
+TST_CFLAGS := -g -Wall
+
 RM := rm -f
 COVT := gcov
 COVFLAGS := -coverage -g -Wall
@@ -46,13 +53,13 @@ $(EXE) : $(EXE_OBJ)
 
 .PHONY : lib
 lib : $(LIB)
-$(LIB) : $(LIB_OBJ)
-	$(CC) $(LIB_LDFLAGS) -o $@ $^
+$(LIB) : $(LIB_SRC)
+	$(CC) $(LIB_LDFLAGS) $(LIB_CFLAGS) -o $@ $^
 
 .PHONY : test
 test : $(TST)
-$(TST) : $(LIB) $(TST_OBJ)
-	$(CC) $(TST_LDFLAGS) -o $@ $(TST_OBJ)
+$(TST) : $(LIB) $(TST_SRC)
+	$(CC) $(TST_LDFLAGS) $(TST_CFLAGS) -o $@ $(TST_SRC)
 
 .PHONY : cov
 cov : $(COV)
@@ -60,9 +67,6 @@ $(COV) : $(SRC)
 	$(CC) $(COVFLAGS) -o $@ $^
 	./$@
 	$(COVT) $(SRC)
-
-%.o : %.$(LNG)
-	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY : clean
 clean :
