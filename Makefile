@@ -19,6 +19,7 @@ EXE_OBJ :=
 LIB_OBJ := $(subst .$(LNG),.o,$(LIB_SRC))
 TST_OBJ := $(subst .$(LNG),.o,$(TST_SRC))
 OBJ := $(EXE_OBJ) $(LIB_OBJ) $(TST_OBJ)
+COV_OBJ := $(shell ls *.gcno *.gcda *.gcov 2>/dev/null)
 
 # tools
 ifeq ($(LNG), c)
@@ -26,11 +27,12 @@ ifeq ($(LNG), c)
 else
 	CC := g++
 endif
-LIB_LDFLAGS := -Wall -shared
+LIB_LDFLAGS := -coverage -Wall -shared
 EXE_LDFLAGS :=
-TST_LDFLAGS := -Wall -lm -l$(PRO) -L.
-CFLAGS := -Wall -c
+TST_LDFLAGS := -coverage -Wall -lm -l$(PRO) -L.
+CFLAGS := -coverage -g -Wall -c
 RM := rm -f
+COV := gcov
 
 # targets
 .PHONY : all
@@ -46,13 +48,18 @@ $(LIB) : $(LIB_OBJ)
 	$(CC) $(LIB_LDFLAGS) -o $@ $^
 
 .PHONY : test
-test : $(LIB) $(TST)
-$(TST) : $(TST_OBJ)
-	$(CC) $(TST_LDFLAGS) -o $@ $^
+test : $(TST)
+$(TST) : $(LIB) $(TST_OBJ)
+	$(CC) $(TST_LDFLAGS) -o $@ $(TST_OBJ)
+
+.PHONY : cov
+cov : test $(SRC)
+	./$(TST)
+	$(COV) $(SRC)
 
 %.o : %.$(LNG)
 	$(CC) $(CFLAGS) -o $@ $<
 
 .PHONY : clean
 clean :
-	$(RM) $(OUT) $(OBJ)
+	$(RM) $(OUT) $(OBJ) $(COV) $(COV_OBJ)

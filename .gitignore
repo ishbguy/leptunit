@@ -1,8 +1,23 @@
+# make output files
 test-leptunit
 build/*
+
+# valgrind's coredump files
 vgcore*
+
+# vim's swap files
 *.sw[op]
-*.[ado]
+
+# dependence and object files of gcc
+*.[do]
+
+# Linux and windows library files
+*.a
 *.so
 *.la.*
 *.so.*
+
+# coverage files of gcov
+*.gcno
+*.gcda
+*.gcov
