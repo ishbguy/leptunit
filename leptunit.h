@@ -41,11 +41,11 @@
             expect, actual, "%.17g")
 
 #define EXPECT_EQ_STR(expect, actual)                                         \
-    EXPECT_EQ_BASE((!strcmp((expect), (char *)(actual))),                     \
+    EXPECT_EQ_BASE((strcmp((expect), (char *)(actual)) == 0),                 \
             expect, (char *)actual, "%s")
 
 #define EXPECT_EQ_NSTR(expect, actual, length)                                \
-    EXPECT_EQ_BASE((!strncmp((expect), (char *)(actual), length)),            \
+    EXPECT_EQ_BASE((strncmp((expect), (char *)(actual), length) == 0),        \
             expect, (char *)actual, "%s")
 
 #define EXPECT_EQ_PTR(expect, actual)                                         \
@@ -66,11 +66,11 @@
             expect, actual, "%.17g")
 
 #define EXPECT_NE_STR(expect, actual)                                         \
-    EXPECT_EQ_BASE((strcmp((expect), (char *)(actual))),                      \
+    EXPECT_EQ_BASE((strcmp((expect), (char *)(actual)) != 0),                 \
             expect, (char *)actual, "%s")
 
 #define EXPECT_NE_NSTR(expect, actual, length)                                \
-    EXPECT_EQ_BASE((strncmp((expect), (char *)(actual), length)),             \
+    EXPECT_EQ_BASE((strncmp((expect), (char *)(actual), length) != 0),        \
             expect, (char *)actual, "%s")
 
 #define EXPECT_NE_PTR(expect, actual)                                         \

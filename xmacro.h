@@ -115,7 +115,7 @@ struct __xlist_node {
 #define XLIST_ADD(l, d) do {         \
     struct __xlist_node *n;          \
     NEW0(n);                         \
-    assert(n);                       \
+    assert(n != NULL);               \
     n->data = d;                     \
     n->next = l;                     \
     l = n;                           \
