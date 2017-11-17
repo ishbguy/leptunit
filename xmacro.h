@@ -106,8 +106,8 @@
 
 /* define generic xmacro list */
 struct __xlist_node {
-    void *data;
     struct __xlist_node *next;
+    void *data;
 };
 
 #define XLIST_NEW(l) struct __xlist_node *l = NULL
