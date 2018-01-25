@@ -7,8 +7,8 @@
 #include "xmacro.h"
 #include <assert.h>
 
-#define GET_LIST_HEAD(l, h)     h = (xlist_node_t *)(l)
-#define SET_LIST_HEAD(l, h)     l = (leptunit_list_t *)(h)
+#define GET_LIST_HEAD(l, h) h = (xlist_node_t*)(l)
+#define SET_LIST_HEAD(l, h) l = (leptunit_list_t*)(h)
 
 typedef struct __xlist_node xlist_node_t;
 
@@ -22,6 +22,9 @@ void leptunit_init(leptunit_suit_t * suit)
 
     suit->count = 0;
     suit->pass = 0;
+    /*
+     * TODO: Check suit->tests before init it 
+     */
     suit->tests = NULL;
 }
 
@@ -60,9 +63,9 @@ void leptunit_run(leptunit_suit_t * suit)
 
 int leptunit_summary(leptunit_suit_t * suit)
 {
-    int fail = suit->count - suit->pass;
-
     assert(suit != NULL);
+
+    int fail = suit->count - suit->pass;
 
     printf("total: %d, pass: %d, fail: %d, (%3.2f%%).\n", suit->count,
            suit->pass, fail, suit->pass * 100.0 / suit->count);
