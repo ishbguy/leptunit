@@ -6,18 +6,13 @@
 #ifndef __XMACRO_H__
 #define __XMACRO_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-
-/* compile as c++ code */
-#ifdef __cplusplus
-#define XDECL_BEGIN extern "C" {
-#define XDECL_END }
-#else
-#define XDECL_BEGIN
-#define XDECL_END
-#endif
 
 #ifdef __HP_cc
 #define inline __inline
@@ -150,7 +145,11 @@ struct __xlist_node {
 #define XSTACK_NEW(s) XLIST_NEW(s)
 #define XSTACK_PUSH(s, d) XLIST_ADD((s), (d))
 #define XSTACK_POP(s, d) XLIST_DEL((s), (d))
-#define XSTACK_FREE(s) XLIST_FREE(s)
+#define XSTACK_FREE(s) XLIST_FREE(s)/* What to do */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* End of include guard: __XMACRO_H__ */
 

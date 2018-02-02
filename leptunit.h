@@ -6,20 +6,27 @@
 #ifndef __LEPTUNIT_H__
 #define __LEPTUNIT_H__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include "lepttypes.h"
 
 /* these EXPECT macros must use in a test case */
 #define EXPECT_EQ_BASE(equality, expect, actual, format)                      \
     do {                                                                      \
         if (equality)                                                         \
-            suit->pass++;                                                     \
-        else                                                                  \
+            leptunit_pass(suit);                                              \
+        else {                                                                \
             fprintf(stderr, "%s:%d: expect: " format " actual: " format "\n", \
                     __FILE__, __LINE__, expect, actual);                      \
-        suit->count++;                                                        \
+            leptunit_set_fail(suit);                                          \
+        }                                                                     \
+        leptunit_count(suit);                                                 \
     } while(0)
 
 /* equal */
@@ -80,31 +87,23 @@
     EXPECT_EQ_BASE((NULL) != (actual), NULL, actual, "%p")
 
 typedef struct leptunit_list_t leptunit_list_t;
-
-/* test suit type */
-typedef struct {
-    int count;
-    int pass;
-    leptunit_list_t *tests;
-} leptunit_suit_t;
-
-/* test case type */
+typedef struct leptunit_suit_t leptunit_suit_t;
 typedef void (*leptunit_t) (leptunit_suit_t * suit);
 
-/* init a test suit */
-extern void leptunit_init(leptunit_suit_t * suit);
+LEPT_API leptunit_suit_t *leptunit_new(void);
+LEPT_API void leptunit_free(leptunit_suit_t **suit);
+LEPT_API void __leptunit_add(leptunit_suit_t *suit, leptunit_t test, const char *test_name);
+#define leptunit_add(suit, test) __leptunit_add(suit, test, #test)
+LEPT_API void leptunit_run(leptunit_suit_t * suit);
+LEPT_API void leptunit_count(leptunit_suit_t *suit);
+LEPT_API void leptunit_pass(leptunit_suit_t *suit);
+LEPT_API void leptunit_set_fail(leptunit_suit_t *suit);
+LEPT_API void leptunit_clear_fail(leptunit_suit_t *suit);
+LEPT_API int leptunit_summary(leptunit_suit_t * suit);
 
-/* add test case to test suit */
-extern void leptunit_add(leptunit_suit_t *suit, leptunit_t test);
-
-/* clear all test cases in test suit */
-extern void leptunit_clear(leptunit_suit_t *suit);
-
-/* run a test suit */
-extern void leptunit_run(leptunit_suit_t * suit);
-
-/* print out unit tests summary */
-extern int leptunit_summary(leptunit_suit_t * suit);
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* End of include guard: __LEPTUNIT_H__ */
 

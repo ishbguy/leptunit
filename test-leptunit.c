@@ -43,14 +43,12 @@ void test_leptunit_summary(leptunit_suit_t * suit)
 
 int main(int argc, char *argv[])
 {
-    leptunit_suit_t suit;
-
-    leptunit_init(&suit);
-    leptunit_add(&suit, test_leptunit_summary);
-    leptunit_add(&suit, test_leptunit_expect);
-    leptunit_run(&suit);
-    leptunit_summary(&suit);
-    leptunit_clear(&suit);
+    leptunit_suit_t *suit = leptunit_new() ;
+    leptunit_add(suit, test_leptunit_summary);
+    leptunit_add(suit, test_leptunit_expect);
+    leptunit_run(suit);
+    leptunit_summary(suit);
+    leptunit_free(&suit);
     return 0;
 }
 
