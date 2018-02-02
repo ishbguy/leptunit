@@ -96,11 +96,13 @@ void __leptunit_add(leptunit_suit_t * suit, leptunit_t test,
 
 void leptunit_set_fail(leptunit_suit_t * suit)
 {
+    assert(suit != NULL);
     suit->fail = 1;
 }
 
 void leptunit_clear_fail(leptunit_suit_t * suit)
 {
+    assert(suit != NULL);
     suit->fail = 0;
 }
 
@@ -134,11 +136,13 @@ void leptunit_run(leptunit_suit_t * suit)
 
 void leptunit_count(leptunit_suit_t * suit)
 {
+    assert(suit != NULL);
     suit->count++;
 }
 
 void leptunit_pass(leptunit_suit_t * suit)
 {
+    assert(suit != NULL);
     suit->pass++;
 }
 
