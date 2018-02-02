@@ -2,6 +2,8 @@
 test-leptunit
 cov-test-leptunit
 build/*
+leptunit.info
+leptunit-test-report/*
 
 # valgrind's coredump files
 vgcore*

@@ -39,9 +39,16 @@ LIB_CFLAGS := -fPIC -g -Wall
 TST_LDFLAGS := -lm -L. -l$(PRO)
 TST_CFLAGS := -g -Wall
 
-RM := rm -f
+RM := rm -rf
 COVT := gcov
-COVFLAGS := -coverage -g -Wall
+COV_FLAGS := -coverage -g -Wall
+INFO_FILE := $(PRO).info
+REPORT_DIR := $(PRO)-test-report
+LCOV := lcov
+LCOV_FLAGS := --capture --directory . --output-file $(INFO_FILE) --test-name $(PRO)
+GEN_HTML := genhtml
+GEN_HTML_FLAGS := $(INFO_FILE) --output-directory $(REPORT_DIR) \
+	--title "Test For $(PRO)" --show-details --legend
 
 # targets
 .PHONY : all
@@ -64,10 +71,12 @@ $(TST) : $(LIB) $(TST_SRC)
 .PHONY : cov
 cov : $(COV)
 $(COV) : $(SRC)
-	$(CC) $(COVFLAGS) -o $@ $^
+	$(CC) $(COV_FLAGS) -o $@ $^
 	./$@
 	$(COVT) $(SRC)
+	$(LCOV) $(LCOV_FLAGS)
+	$(GEN_HTML) $(GEN_HTML_FLAGS)
 
 .PHONY : clean
 clean :
-	$(RM) $(OUT) $(OBJ) $(COV) $(COV_OBJ)
+	$(RM) $(OUT) $(OBJ) $(COV) $(COV_OBJ) $(INFO_FILE) $(REPORT_DIR)
