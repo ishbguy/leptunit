@@ -103,7 +103,7 @@ $ gcc -lm -lleptunit -L/path/to/leptunit/dynamic/lib -o test test.c
 $ ./test
 ```
 
-If you use `EXPECT_EQ_DOUBLE`, `EXPECT_NE_NULL`, `EXPECT_EQ_DOUBLE_PREC` and `EXPECT_NE_DOUBLE_PREC`, you must compile you test with -lm option.
+If you use `EXPECT_EQ_DOUBLE`, `EXPECT_NE_DOUBLE`, `EXPECT_EQ_DOUBLE_PREC` and `EXPECT_NE_DOUBLE_PREC`, you must compile you test with -lm option.
 
 ## Contributing
 
