@@ -89,6 +89,7 @@ extern "C" {
 typedef struct leptunit_list_t leptunit_list_t;
 typedef struct leptunit_suit_t leptunit_suit_t;
 typedef void (*leptunit_t) (leptunit_suit_t * suit);
+#define LEPTUNIT_TEST_CASE(test) void (test)(leptunit_suit_t * suit)
 
 LEPT_API leptunit_suit_t *leptunit_new(void);
 LEPT_API void leptunit_free(leptunit_suit_t **suit);

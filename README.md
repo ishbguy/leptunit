@@ -54,8 +54,8 @@ Write test.c:
 ```C
 #include "/path/to/leptunit.h"
 
-/* test_case's arg must be "leptunit_suit *suit" !!!*/
-void test_case(leptunit_suit *suit) {
+LEPTUNIT_TEST_CASE(test_case)
+{
     /*
      * Test bool
      */
@@ -88,8 +88,7 @@ void test_case(leptunit_suit *suit) {
 int main(int argc, char *argv[])
 {
     leptunit_suit_t *suit = leptunit_new() ;
-    leptunit_add(suit, test_leptunit_summary);
-    leptunit_add(suit, test_leptunit_expect);
+    leptunit_add(suit, test_case);
     leptunit_run(suit);
     leptunit_summary(suit);
     leptunit_free(&suit);

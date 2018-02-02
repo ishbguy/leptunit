@@ -5,7 +5,7 @@
 
 #include "leptunit.h"
 
-void test_leptunit_expect(leptunit_suit_t * suit)
+LEPTUNIT_TEST_CASE(test_leptunit_expect)
 {
     /*
      * Test bool 
@@ -36,7 +36,7 @@ void test_leptunit_expect(leptunit_suit_t * suit)
     EXPECT_NE_NULL("leptunit");
 }
 
-void test_leptunit_summary(leptunit_suit_t * suit)
+LEPTUNIT_TEST_CASE(test_leptunit_summary)
 {
     EXPECT_EQ_INT(0, leptunit_summary(suit));
 }
