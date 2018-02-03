@@ -86,7 +86,6 @@ extern "C" {
 #define EXPECT_NE_NULL(actual)                                                \
     EXPECT_EQ_BASE((NULL) != (actual), NULL, actual, "%p")
 
-typedef struct leptunit_list_t leptunit_list_t;
 typedef struct leptunit_suit_t leptunit_suit_t;
 typedef void (*leptunit_t) (leptunit_suit_t * suit);
 #define LEPTUNIT_TEST_CASE(test) void (test)(leptunit_suit_t * suit)

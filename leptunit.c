@@ -5,21 +5,18 @@
 
 #include "leptunit.h"
 #include "xmacro.h"
+#include "xlist.h"
 #include <assert.h>
 
 #define GET_LIST_HEAD(l, h) h = (xlist_node_t*)(l)
 #define SET_LIST_HEAD(l, h) l = (leptunit_list_t*)(h)
 
-typedef struct __xlist_node xlist_node_t;
+typedef struct __xlist_node xlist_node_t, leptunit_list_t;
 
 typedef struct {
     leptunit_t test;
     char *test_name;
 } leptunit_node_t;
-
-struct leptunit_list_t {
-    xlist_node_t list;
-};
 
 struct leptunit_suit_t {
     int count;
