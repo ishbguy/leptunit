@@ -108,30 +108,30 @@ struct __xlist_node {
 #define XLIST_NEW(l) struct __xlist_node *l = NULL
 
 #define XLIST_ADD(l, d) do {         \
-    struct __xlist_node *n;          \
-    NEW0(n);                         \
-    assert(n != NULL);               \
-    n->data = d;                     \
-    n->next = l;                     \
-    l = n;                           \
+    struct __xlist_node *node;       \
+    NEW0(node);                      \
+    assert(node != NULL);            \
+    node->data = d;                  \
+    node->next = l;                  \
+    l = node;                        \
 } while (0)
 
 #define XLIST_DEL(l, d) do {         \
-    struct __xlist_node *n;          \
+    struct __xlist_node *node;       \
     if (l) {                         \
-        n = l;                       \
-        d = n->data;                 \
-        l = n->next;                 \
-        FREE(n);                     \
+        node = l;                    \
+        d = node->data;              \
+        l = node->next;              \
+        FREE(node);                  \
     }                                \
 } while (0)
 
 #define XLIST_FREE(l) do {           \
-    struct __xlist_node *n;          \
+    struct __xlist_node *node;       \
     while (l) {                      \
-        n = l;                       \
-        l = n->next;                 \
-        free(n);                     \
+        node = l;                    \
+        l = node->next;              \
+        free(node);                  \
     }                                \
 } while (0)
 

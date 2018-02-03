@@ -70,28 +70,27 @@ void leptunit_free(leptunit_suit_t ** suit)
     assert(suit != NULL);
 
     if (*suit) {
-        xlist_node_t *test, *l;
-        leptunit_suit_t *s = *suit;
+        xlist_node_t *test, *list;
 
-        GET_LIST_HEAD(s->tests, l);
-        XLIST_FOR_EACH(test, l)
+        GET_LIST_HEAD((*suit)->tests, list);
+        XLIST_FOR_EACH(test, list)
             leptunit_node_free((leptunit_node_t **) (&test->data));
-        XLIST_FREE(l);
-        SET_LIST_HEAD(s->tests, NULL);
-        FREE(s);
+        XLIST_FREE(list);
+        SET_LIST_HEAD((*suit)->tests, NULL);
+        FREE(*suit);
     }
 }
 
 void __leptunit_add(leptunit_suit_t * suit, leptunit_t test,
                     const char *test_name)
 {
-    xlist_node_t *l;
+    xlist_node_t *list;
 
     assert(suit != NULL && test != NULL && test_name != NULL);
 
-    GET_LIST_HEAD(suit->tests, l);
-    XLIST_ADD(l, leptunit_node_new(test, test_name));
-    SET_LIST_HEAD(suit->tests, l);
+    GET_LIST_HEAD(suit->tests, list);
+    XLIST_ADD(list, leptunit_node_new(test, test_name));
+    SET_LIST_HEAD(suit->tests, list);
 }
 
 void leptunit_set_fail(leptunit_suit_t * suit)
@@ -125,12 +124,12 @@ static void run_test_and_print_result(leptunit_suit_t * suit,
 
 void leptunit_run(leptunit_suit_t * suit)
 {
-    xlist_node_t *test, *l;
+    xlist_node_t *test, *list;
 
     assert(suit != NULL);
 
-    GET_LIST_HEAD(suit->tests, l);
-    XLIST_FOR_EACH(test, l)
+    GET_LIST_HEAD(suit->tests, list);
+    XLIST_FOR_EACH(test, list)
         run_test_and_print_result(suit, test);
 }
 
