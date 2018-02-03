@@ -12,8 +12,8 @@ extern "C" {
 
 #include "xlist.h"
 
-#define XSTACK_T struct __xlist_node
-#define XSTACK_NODE_T struct __xlist_node
+#define XSTACK_T xlist_node_t
+#define XSTACK_NODE_T xlist_node_t
 #define XSTACK_NEW(s) XLIST_NEW(s)
 #define XSTACK_PUSH(s, d) XLIST_ADD((s), (d))
 #define XSTACK_POP(s, d) XLIST_DEL((s), (d))

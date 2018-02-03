@@ -11,14 +11,14 @@
 #define GET_LIST_HEAD(l, h) h = (xlist_node_t*)(l)
 #define SET_LIST_HEAD(l, h) l = (leptunit_list_t*)(h)
 
-typedef struct __xlist_node xlist_node_t, leptunit_list_t;
+typedef xlist_node_t leptunit_list_t;
 
 typedef struct {
     leptunit_t test;
     char *test_name;
 } leptunit_node_t;
 
-struct leptunit_suit_t {
+struct leptunit_suit {
     int count;
     int pass;
     int fail;

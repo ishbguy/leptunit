@@ -13,15 +13,15 @@ extern "C" {
 #include "xalloc.h"
 
 /* define generic xmacro list */
-struct __xlist_node {
-    struct __xlist_node *next;
+typedef struct xlist_node {
+    struct xlist_node *next;
     void *data;
-};
+} xlist_node_t;
 
-#define XLIST_NEW(l) struct __xlist_node *l = NULL
+#define XLIST_NEW(l) xlist_node_t *l = NULL
 
 #define XLIST_ADD(l, d) do {         \
-    struct __xlist_node *node;       \
+    xlist_node_t *node;              \
     NEW0(node);                      \
     assert(node != NULL);            \
     node->data = d;                  \
@@ -30,7 +30,7 @@ struct __xlist_node {
 } while (0)
 
 #define XLIST_DEL(l, d) do {         \
-    struct __xlist_node *node;       \
+    xlist_node_t *node;              \
     if (l) {                         \
         node = l;                    \
         d = node->data;              \
@@ -40,7 +40,7 @@ struct __xlist_node {
 } while (0)
 
 #define XLIST_FREE(l) do {           \
-    struct __xlist_node *node;       \
+    xlist_node_t *node;              \
     while (l) {                      \
         node = l;                    \
         l = node->next;              \
