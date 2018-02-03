@@ -35,7 +35,7 @@ static leptunit_node_t *leptunit_node_new(leptunit_t test,
 
     assert(test != NULL && test_name != NULL);
 
-    MALLOC(node, sizeof(leptunit_node_t));
+    NEW0(node);
     assert(node != NULL);
     node->test = test;
     MALLOC(node->test_name, strlen(test_name) + 1);
@@ -57,7 +57,7 @@ leptunit_suit_t *leptunit_new(void)
 {
     leptunit_suit_t *suit;
 
-    MALLOC(suit, sizeof(leptunit_suit_t));
+    NEW0(suit);
     assert(suit != NULL);
     suit->count = 0;
     suit->pass = 0;
