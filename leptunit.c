@@ -4,7 +4,7 @@
  */
 
 #include "leptunit.h"
-#include "xmacro.h"
+#include "xalloc.h"
 #include "xlist.h"
 #include <assert.h>
 

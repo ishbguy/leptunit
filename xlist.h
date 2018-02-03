@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-#include "xmacro.h"
+#include "xalloc.h"
 
 /* define generic xmacro list */
 struct __xlist_node {

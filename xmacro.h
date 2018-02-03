@@ -10,9 +10,6 @@
 extern "C" {
 #endif
 
-#include <stdlib.h>
-#include <string.h>
-
 #ifdef __HP_cc
 #define inline __inline
 #endif
@@ -88,15 +85,6 @@ extern "C" {
 /* a is an ptr array whose last element is NULL pointer */
 #define ARRAY_FOR_EACH_PTR(ptr, a) \
     for (ptr = a; ptr && *ptr; ptr++)
-
-/* memory allocated functions macros. */
-#define MALLOC(ptr, size) ptr = malloc(size)
-#define CALLOC(ptr, num, size) ptr = calloc(num, size)
-#define REALLOC(ptr, size) ptr = realloc(ptr, size)
-#define STRDUP(dest, src) dest = strdup(src)
-#define NEW(ptr) ptr = malloc(sizeof(*(ptr)))
-#define NEW0(ptr) ptr = calloc(1, sizeof(*(ptr)))
-#define FREE(ptr) free((ptr)), ptr = NULL
 
 #ifdef __cplusplus
 }
