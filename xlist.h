@@ -16,7 +16,7 @@ extern "C" {
 typedef struct xlist_node {
     struct xlist_node *next;
     void *data;
-} xlist_node_t;
+} xlist_node_t, xlist_t;
 
 #define XLIST_NEW(l) xlist_node_t *l = NULL
 
